@@ -11,7 +11,7 @@
             "email": "typhoon31815@gmail.com"
         }
     ],
-    "minimum-stability": "dev-master",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "ScottLin\\WebbotBundle\\": "src"
