@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "MajaLin\\Webbot\\": "src/"
+            "MajaLin\\Webbot\\": "packages/MajaLin/Webbot/src/"
         }
     }
 }
