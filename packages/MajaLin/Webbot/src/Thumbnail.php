@@ -1,6 +1,6 @@
 <?php
 
-namespace ScottLin\Webbot;
+namespace MajaLin\Webbot;
 
 /*
 ########################################################################
@@ -41,60 +41,74 @@ documentation will at all times remain with copyright holders.
 ########################################################################
 */
 
-class HttpStatusCodes
+class Thumbnail
 {
-    #-------------------------------------
-    # Define 100 series http codes (informational)
-    # Define 200 series http codes (successful)
-    # Define 300 series http codes (redirection)
-    # Define 400 series http codes (client error)
-    # Define 500 series http codes (server error)
-    #-------------------------------------
-    public static $status_code_array = [
-        '100' => "100 Continue",
-        '101' => "101 Switching Protocols",
-        # Define 200 series http codes (successful)
-        '200' => "200 OK",
-        '201' => "201 Created",
-        '202' => "202 Accepted",
-        '203' => "203 Non-Authoritative Information",
-        '204' => "204 No Content",
-        '205' => "205 Reset Content",
-        '206' => "206 Partial Content",
-        # Define 300 series http codes (redirection)
-        '300' => "300 Multiple Choices",
-        '301' => "301 Moved Permanently",
-        '302' => "302 Found",
-        '303' => "303 See Other",
-        '304' => "304 Not Modified",
-        '305' => "305 Use Proxy",
-        '306' => "306 (Unused)",
-        '307' => "307 Temporary Redirect",
-        # Define 400 series http codes (client error)
-        '400' => "400 Bad Request",
-        '401' => "401 Unauthorized",
-        '402' => "402 Payment Required",
-        '403' => "403 Forbidden",
-        '404' => "404 Not Found",
-        '405' => "405 Method Not Allowed",
-        '406' => "406 Not Acceptable",
-        '407' => "407 Proxy Authentication Required",
-        '408' => "408 Request Timeout",
-        '409' => "409 Conflict",
-        '410' => "410 Gone",
-        '411' => "411 Length Required",
-        '412' => "412 Precondition Failed",
-        '413' => "413 Request Entity Too Large",
-        '414' => "414 Request-URI Too Long",
-        '415' => "415 Unsupported Media Type",
-        '416' => "416 Requested Range Not Satisfiable",
-        '417' => "417 Expectation Failed",
-        # Define 500 series http codes (server error)
-        '500' => "500 Internal Server Error",
-        '501' => "501 Not Implemented",
-        '502' => "502 Bad Gateway",
-        '503' => "503 Service Unavailable",
-        '504' => "504 Gateway Timeout",
-        '505' => "505 HTTP Version Not Supported",
-    ];
+    /*
+    #-----------------------------------------------------------------------
+    #
+    # LIB_thumbnail     JPG Thumbnailing routine
+    #
+    #-----------------------------------------------------------------------
+
+    create_thumbnail($org_file, $new_file_name, $max_width, $max_height)
+    -------------------------------------------------------------
+    DESCRIPTION:
+            Creates a thumbnail image of a larger image
+
+    INPUT:
+            $org_file
+                The name of the original image file
+
+            $new_file_name
+                The name of the thumbnail image file
+
+            $max_width
+                The maximum width of the thumbnail file
+            $max_height
+                The maximum height of the thumbnail file
+    RETURNS:
+            Creates a thumbnail file with the file name $new_file_name
+    #########################################################################
+    */
+    public function create_thumbnail($org_file, $new_file_name, $max_width, $max_height)
+    {
+        // Initialization
+        $src_image_array = getimagesize ($org_file);
+        $srcX = 1;
+        $srcY = 1;
+        $srcW = $src_image_array[0];
+        $srcH = $src_image_array[1];
+
+        # If images is wider than it is tall
+        if ($srcW>$srcH) {
+            $dstX = 1;
+            $dstY = 1;
+            if ($srcW>$max_width) {
+                $dstW = $max_width;
+            } else {
+                $dstW = $srcW;
+            }
+            $ratio = $srcW/$srcH;
+            $dstH  = $dstW/$ratio;
+        } else {    # Else if the images is taller than it is wide
+            $dstX = 1;
+            $dstY = 1;
+            if ($srcH>$max_width) {
+                $dstH = $max_width;
+            } else {
+                $dstH = $srcH;
+            }
+            $ratio = $srcH/$srcW;
+            $dstW  = $dstH/$ratio;
+        }
+        $src_image = ImageCreateFromJPEG ($org_file);
+        $dst_image = imagecreatetruecolor($dstW, $dstH) or
+            die ("Cannot Initialize new GD image stream");
+        $result = imagecopyresampled($dst_image, $src_image, 0, 0, 0, 0, $dstW, $dstH, $srcW, $srcH );
+        $bool = imagejpeg ($dst_image, $new_file_name);    // create thumbnail image
+
+        imagedestroy($src_image);
+        imagedestroy($dst_image);
+        return $bool;
+    }
 }
