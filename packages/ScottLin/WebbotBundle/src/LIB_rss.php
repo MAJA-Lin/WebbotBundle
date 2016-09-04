@@ -1,6 +1,6 @@
 <?php
 
-namespace MichaelSchrenk\WebbotBundle\Library;
+namespace ScottLin\WebbotBundle;
 
 /*
 ########################################################################
@@ -107,7 +107,7 @@ class Rss
             Sends results to the display device
     ***********************************************************************/
     public function display_rss_array($rss_array)
-        {?>
+    {?>
         <table border="0">
             <!-- Display the article title and copyright notice -->
             <tr><td><font size="+1"><b><?echo strip_cdata_tags($rss_array['TITLE'])?></b></font></td></tr>
@@ -131,7 +131,7 @@ class Rss
                 </tr>
               <?}?>
         </table>
-      <?}
+     <?}
 
     /***********************************************************************
     strip_cdata_tags($string)

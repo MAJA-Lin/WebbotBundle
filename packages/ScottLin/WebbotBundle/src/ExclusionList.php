@@ -1,6 +1,6 @@
 <?php
 
-namespace MichaelSchrenk\WebbotBundle\Library;
+namespace ScottLin\WebbotBundle;
 
 class ExclusionList
 {
