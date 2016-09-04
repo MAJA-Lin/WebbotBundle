@@ -1,6 +1,6 @@
 <?php
 
-namespace ScottLin\WebbotBundle;
+namespace ScottLin\Webbot;
 
 /*
 ########################################################################
@@ -61,9 +61,9 @@ documentation will at all times remain with copyright holders.
 #
 #-----------------------------------------------------------------------
 
-use ScottLin\WebbotBundle\Http as MS_Http;
-use ScottLin\WebbotBundle\Parse as MS_Parse;
-use ScottLin\WebbotBundle\ResolveAddresses as MS_ReResolveAddresses;
+use ScottLin\Webbot\Http as MS_Http;
+use ScottLin\Webbot\Parse as MS_Parse;
+use ScottLin\Webbot\ResolveAddresses as MS_ReResolveAddresses;
 
 class DownloadImages
 {

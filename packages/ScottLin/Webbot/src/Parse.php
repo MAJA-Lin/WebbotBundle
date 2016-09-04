@@ -1,6 +1,6 @@
 <?php
 
-namespace ScottLin\WebbotBundle;
+namespace ScottLin\Webbot;
 
 /*
 ########################################################################
